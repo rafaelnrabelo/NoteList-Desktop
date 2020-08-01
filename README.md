@@ -22,7 +22,6 @@
 ## Features
   - Login com Facebook.
   - Sincronização das notas em nuvem.
-  - Tema Dark e Light.
   - Lista de Tarefas.
   - Cadastro de anotações.
   - Editar anotação.
