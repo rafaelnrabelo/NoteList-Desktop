@@ -62,7 +62,7 @@ const Note: React.FC = () => {
         note.updated_at = updated_at;
       }
     });
-    store.set('notes', [...notes]);
+    store.set('notes', notes);
     const saveRequest = store.get('saveRequest') as any;
     store.set('saveRequest', {
       request: true,
@@ -81,7 +81,28 @@ const Note: React.FC = () => {
         note.updated_at = updated_at;
       }
     });
-    store.set('notes', [...notes]);
+    store.set('notes', notes);
+    const saveRequest = store.get('saveRequest') as any;
+    store.set('saveRequest', {
+      request: true,
+      lastSave: saveRequest.lastSave,
+      deletedNote: saveRequest.deletedNotes,
+    });
+  }
+
+  function handleSaveToDos(array: ToDos[]) {
+    setToDos(array);
+    var newNotes = store.get('notes') as Note[];
+    var updated_at = moment().utcOffset('-03:00').format('HH:mm:ss DD/MM/YY');
+    const selectedNote = store.get('selected') as Note;
+    newNotes.forEach((note) => {
+      if (note.id === selectedNote.id) {
+        note.toDos = array;
+        note.updated_at = updated_at;
+        store.set('selected', note);
+      }
+    });
+    store.set('notes', newNotes);
     const saveRequest = store.get('saveRequest') as any;
     store.set('saveRequest', {
       request: true,
@@ -93,36 +114,21 @@ const Note: React.FC = () => {
   function handleChangeLabel(text: string, id: string) {
     var array = toDos;
     array[Number(id)].label = text;
+    handleSaveToDos(array);
     setToDos([...array]);
-    const saveRequest = store.get('saveRequest') as any;
-    store.set('saveRequest', {
-      request: true,
-      lastSave: saveRequest.lastSave,
-      deletedNote: saveRequest.deletedNotes,
-    });
   }
 
   function handleChangeCheck(id: string) {
     var array = toDos;
     array[Number(id)].checked = !array[Number(id)].checked;
+    handleSaveToDos(array);
     setToDos([...array]);
-    const saveRequest = store.get('saveRequest') as any;
-    store.set('saveRequest', {
-      request: true,
-      lastSave: saveRequest.lastSave,
-      deletedNote: saveRequest.deletedNotes,
-    });
   }
 
   function handleDeleteToDo(id: string) {
     var array = toDos.filter((todo, index) => index !== Number(id));
-    setToDos(array);
-    const saveRequest = store.get('saveRequest') as any;
-    store.set('saveRequest', {
-      request: true,
-      lastSave: saveRequest.lastSave,
-      deletedNote: saveRequest.deletedNotes,
-    });
+    handleSaveToDos(array);
+    setToDos([...array]);
   }
 
   return (
