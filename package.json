@@ -3,7 +3,7 @@
   "productName": "NoteList",
   "version": "1.0.0",
   "description": "A Simple Note App",
-  "homepage": "https://github.com/rafaelnrabelo/NoteList",
+  "homepage": "https://github.com/rafaelnrabelo/NoteList-Desktop.git",
   "main": "./dist/main.js",
   "scripts": {
     "dev": "npm-run-all -p dev:react electron:serve",
