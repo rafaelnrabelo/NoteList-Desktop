@@ -12,11 +12,11 @@
     <img src="https://img.shields.io/badge/Testing-Install-%23DA552F" alt="testing"/>
   </a>
   <a href="https://github.com/rafaelnrabelo/NoteList-Desktop/releases/latest">
-    <img src="https://img.shields.io/badge/Last%20Release-1.0.0-%23DA552F" alt="release"/>
+    <img src="https://img.shields.io/badge/Last%20Release-1.0.1-%23DA552F" alt="release"/>
   </a>
   <br/>
   <br/>
-  <img src="https://user-images.githubusercontent.com/55251721/89109438-8477c700-d417-11ea-8ba4-03422a713084.png" />
+  <img src="https://user-images.githubusercontent.com/55251721/89123704-ba648c00-d4a7-11ea-9746-e9ced48c3281.png" />
 </h2>
 
 ## Features
