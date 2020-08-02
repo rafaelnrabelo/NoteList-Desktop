@@ -1,7 +1,15 @@
 import React from 'react';
 import moment from 'moment';
 
-import { Container, Button, AddOutlined, AddHover, SearchBar } from './styles';
+import {
+  Container,
+  Button,
+  AddOutlined,
+  AddHover,
+  SearchBar,
+  SearchIcon,
+  SearchContainer,
+} from './styles';
 import store from '../../../store/config';
 
 interface ToDos {
@@ -47,11 +55,14 @@ const AddButton: React.FC = () => {
 
   return (
     <Container>
-      <SearchBar
-        onChange={(e) => {
-          store.set('searchText', e.target.value);
-        }}
-      />
+      <SearchContainer>
+        <SearchIcon size={20} />
+        <SearchBar
+          onChange={(e) => {
+            store.set('searchText', e.target.value);
+          }}
+        />
+      </SearchContainer>
       <Button onClick={handleNewNote}>
         <AddOutlined size={20} />
         <AddHover size={20} />
