@@ -12,7 +12,7 @@
     <img src="https://img.shields.io/badge/Testing-Install-%23DA552F" alt="testing"/>
   </a>
   <a href="https://github.com/rafaelnrabelo/NoteList-Desktop/releases/latest">
-    <img src="https://img.shields.io/badge/Last%20Release-2.1.1-%23DA552F" alt="release"/>
+    <img src="https://img.shields.io/badge/Last%20Release-1.0.0-%23DA552F" alt="release"/>
   </a>
   <br/>
   <br/>
@@ -22,7 +22,6 @@
 ## Features
   - Login com Facebook.
   - Sincronização das notas em nuvem.
-  - Tema Dark e Light.
   - Lista de Tarefas.
   - Cadastro de anotações.
   - Editar anotação.
