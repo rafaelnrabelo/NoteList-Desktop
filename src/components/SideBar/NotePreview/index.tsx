@@ -6,6 +6,7 @@ interface Props {
   date: String;
   selected: boolean;
   children?: ReactNode;
+  style: object;
   onClick?: () => void;
 }
 
@@ -29,7 +30,11 @@ const NotePreview: React.FC<Props> = (props) => {
 
   return (
     <>
-      <Container onClick={props.onClick} selected={props.selected}>
+      <Container
+        onClick={props.onClick}
+        style={props.style}
+        selected={props.selected}
+      >
         <Title>{props.title === '' ? 'Sem Titulo' : props.title}</Title>
         <UpdatedAt>
           <Time>{updated.time}</Time>

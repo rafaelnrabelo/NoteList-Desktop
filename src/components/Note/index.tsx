@@ -151,7 +151,7 @@ const Note: React.FC = () => {
           }}
           value={description}
         />
-        {toDos.map((toDo, index) => (
+        {toDos.map((item, index) => (
           <ToDoContainer key={index}>
             <DeleteToDo
               onClick={(e) => {
@@ -166,12 +166,12 @@ const Note: React.FC = () => {
               onChange={() => {
                 handleChangeCheck(String(index));
               }}
-              checked={toDo.checked ? true : false}
+              checked={item.checked ? true : false}
             />
             <CheckBoxLabel
               onChange={(e) => handleChangeLabel(e.target.value, String(index))}
-              value={toDo.label}
-              checked={toDo.checked ? true : false}
+              value={item.label}
+              checked={item.checked ? true : false}
             />
           </ToDoContainer>
         ))}

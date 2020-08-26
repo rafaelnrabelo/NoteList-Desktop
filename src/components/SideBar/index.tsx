@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { ResizeCallbackData } from 'react-resizable';
+import { useTransition } from 'react-spring';
+import { easeCubicOut } from 'd3-ease';
 
 import { Container, Content } from './styles';
 import NotePreview from './NotePreview';
@@ -26,6 +28,12 @@ const SideBar: React.FC = () => {
   const [selected, setSelected] = useState<string>('');
   const [sideBarWidth, setSideBarWidth] = useState<number>(200);
   const [notes, setNotes] = useState<Note[]>([]);
+  const notesWithTransitions = useTransition(notes, (note) => note.id, {
+    config: { duration: 100, easing: easeCubicOut },
+    from: { transform: `translateX(-${sideBarWidth}px)`, opacity: 0 },
+    enter: { transform: 'translateX(0px)', opacity: 1 },
+    leave: { transform: `translateX(-${sideBarWidth}px)`, opacity: 0 },
+  });
 
   useEffect(() => {
     store.reset('selected');
@@ -94,9 +102,10 @@ const SideBar: React.FC = () => {
     >
       <AddButton />
       <Content>
-        {notes?.map((note) => (
+        {notesWithTransitions?.map(({ item: note, props, key }) => (
           <NotePreview
-            key={note.id}
+            style={props}
+            key={key}
             title={note.title}
             date={note.updated_at}
             selected={selected === note.id ? true : false}

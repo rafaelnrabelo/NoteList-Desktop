@@ -1,10 +1,11 @@
 import styled from 'styled-components';
+import { animated } from 'react-spring';
 
 interface Props {
   selected: Boolean;
 }
 
-export const Container = styled.div<Props>`
+export const Container = styled(animated.div)<Props>`
   display: flex;
   justify-content: space-between;
   width: 100%;
