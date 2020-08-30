@@ -62,7 +62,7 @@
     "electron-store": "^6.0.0",
     "json-schema-typed": "^7.0.3",
     "moment": "^2.27.0",
-    "open": "^7.1.0",
+    "open": "^7.2.1",
     "react": "^16.13.1",
     "react-autosize-textarea": "^7.1.0",
     "react-dom": "^16.13.1",
