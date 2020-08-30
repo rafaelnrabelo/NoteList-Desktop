@@ -25,6 +25,7 @@ interface NotesContextData {
   notes: Note[];
   selected: Note;
   searchText: string;
+  loading: boolean;
 
   loadNotes(id: string): Promise<void>;
   firstLoadLogin(id: string): Promise<void>;
@@ -47,17 +48,26 @@ const NotesContext = createContext<NotesContextData>({} as NotesContextData);
 
 export const NotesProvider: React.FC = ({ children }) => {
   const [notes, setNotes] = useState<Note[]>(() => {
-    const notes = store.get('notes') as Note[];
+    const notes = localStorage.getItem('@NoteList:notes');
 
-    return notes;
+    if (notes) {
+      return JSON.parse(notes);
+    }
+
+    return {} as Note[];
   });
   const [filteredNotes, setFilteredNotes] = useState<Note[]>(() => {
-    const notes = store.get('notes') as Note[];
+    const notes = localStorage.getItem('@NoteList:notes');
 
-    return notes;
+    if (notes) {
+      return JSON.parse(notes);
+    }
+
+    return {} as Note[];
   });
 
   const [searchText, setSearchText] = useState<string>('');
+  const [loading, setLoading] = useState<boolean>(false);
   const [selected, setSelected] = useState<Note>({
     id: '',
     title: '',
@@ -95,25 +105,33 @@ export const NotesProvider: React.FC = ({ children }) => {
   }
 
   async function firstLoadLogin(id: string) {
-    const response = await api.get('/notes', {
-      headers: {
-        Authorization: id,
-      },
-    });
-    var newNotes = [...notes, ...response.data];
-    const unique = newNotes
-      .map((e) => e['id'])
-      .map((e, i, final) => final.indexOf(e) === i && i)
-      .filter((e) => newNotes[e as any])
-      .map((e) => newNotes[e as any]);
+    setLoading(true);
+    try {
+      const response = await api.get('/notes', {
+        headers: {
+          Authorization: id,
+        },
+      });
+      var newNotes = [...notes, ...response.data];
+      const unique = newNotes
+        .map((e) => e['id'])
+        .map((e, i, final) => final.indexOf(e) === i && i)
+        .filter((e) => newNotes[e as any])
+        .map((e) => newNotes[e as any]);
 
-    store.set('notes', unique);
-    setNotes(unique);
-    setFilteredNotes(unique);
-    setSearchText('');
+      localStorage.setItem('@NoteList:notes', JSON.stringify(unique));
+      setNotes(unique);
+      setFilteredNotes(unique);
+      setSearchText('');
+      setLoading(false);
+    } catch (err) {
+      setLoading(false);
+      console.log(err);
+    }
   }
 
   async function loadNotes(id: string) {
+    setLoading(true);
     try {
       const response = await api.get('/notes', {
         headers: {
@@ -121,10 +139,12 @@ export const NotesProvider: React.FC = ({ children }) => {
         },
       });
 
-      store.set('notes', response.data);
+      localStorage.setItem('@NoteList:notes', JSON.stringify(response.data));
       setNotes(response.data);
       setFilteredNotes(response.data);
+      setLoading(false);
     } catch (err) {
+      setLoading(false);
       console.log(err);
     }
   }
@@ -161,7 +181,10 @@ export const NotesProvider: React.FC = ({ children }) => {
       updated_at: created_at,
     };
 
-    store.set('notes', [...notes, newNote]);
+    localStorage.setItem(
+      '@NoteList:notes',
+      JSON.stringify([...notes, newNote])
+    );
     setNotes([...notes, newNote]);
     setFilteredNotes([...notes, newNote]);
     setSearchText('');
@@ -175,7 +198,7 @@ export const NotesProvider: React.FC = ({ children }) => {
     if (window.confirm('Tem certeza que deseja deletar essa anotação?')) {
       const newNotes = notes.filter((note) => note.id !== selected.id);
 
-      store.set('notes', newNotes);
+      localStorage.setItem('@NoteList:notes', JSON.stringify(newNotes));
       setNotes(newNotes);
       setFilteredNotes(newNotes);
       setSearchText('');
@@ -203,7 +226,7 @@ export const NotesProvider: React.FC = ({ children }) => {
       }
     });
 
-    store.set('notes', newNotes);
+    localStorage.setItem('@NoteList:notes', JSON.stringify(newNotes));
     setNotes(newNotes);
     searchNotes(searchText);
 
@@ -221,7 +244,8 @@ export const NotesProvider: React.FC = ({ children }) => {
       }
     });
 
-    store.set('notes', newNotes);
+    //store.set('notes', newNotes);
+    localStorage.setItem('@NoteList:notes', JSON.stringify(newNotes));
     setNotes(newNotes);
     searchNotes(searchText);
 
@@ -239,7 +263,7 @@ export const NotesProvider: React.FC = ({ children }) => {
       }
     });
 
-    store.set('notes', newNotes);
+    localStorage.setItem('@NoteList:notes', JSON.stringify(newNotes));
     setNotes(newNotes);
     searchNotes(searchText);
 
@@ -291,6 +315,7 @@ export const NotesProvider: React.FC = ({ children }) => {
         notes: filteredNotes,
         searchText,
         selected,
+        loading,
         loadNotes,
         firstLoadLogin,
         saveNotes,

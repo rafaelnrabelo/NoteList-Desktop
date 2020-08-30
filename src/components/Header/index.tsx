@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import {
   Container,
@@ -20,6 +20,7 @@ import {
   AddToDoIconHover,
   SaveIcon,
   SaveIconHover,
+  LoadingCircle,
 } from './styles';
 import { IoIosCloudDone } from 'react-icons/io';
 import { FiPlus } from 'react-icons/fi';
@@ -32,6 +33,13 @@ const Header: React.FC = () => {
   const { user, profilePicture, saveRequest } = useUser();
   const { switchLoginDialogOn } = useConfig();
   const { selected, createToDo, deleteNote, saveNotes } = useNotes();
+  const [loading, setLoading] = useState(false);
+
+  async function handleSaveNotes() {
+    setLoading(true);
+    await saveNotes();
+    setLoading(false);
+  }
 
   return (
     <Container>
@@ -49,10 +57,14 @@ const Header: React.FC = () => {
         <SavableWrapper show={saveRequest.request && user.id !== ''}>
           <SaveText>Último Salvamento:</SaveText>
           <SavedAt>{saveRequest.lastSave}</SavedAt>
-          <SaveButton onClick={saveNotes}>
-            <SaveIcon size={32} color="#da552f" />
-            <SaveIconHover size={32} color="#da552f" />
-          </SaveButton>
+          {loading ? (
+            <LoadingCircle />
+          ) : (
+            <SaveButton onClick={handleSaveNotes}>
+              <SaveIcon size={32} color="#da552f" />
+              <SaveIconHover size={32} color="#da552f" />
+            </SaveButton>
+          )}
         </SavableWrapper>
       </SaveContainer>
       <NoteOptionsWrapper show={selected.id !== ''}>

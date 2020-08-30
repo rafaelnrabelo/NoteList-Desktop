@@ -26,54 +26,6 @@ const schema = {
       },
     },
   },
-  notes: {
-    type: JSONSchemaType.Array,
-    default: [],
-    items: {
-      properties: {
-        id: {
-          type: JSONSchemaType.String,
-          default: '',
-        },
-        title: {
-          type: JSONSchemaType.String,
-          default: '',
-        },
-        description: {
-          type: JSONSchemaType.String,
-          default: '',
-        },
-        created_at: {
-          type: JSONSchemaType.String,
-          default: '',
-        },
-        updated_at: {
-          type: JSONSchemaType.String,
-          default: '',
-        },
-        toDos: {
-          type: JSONSchemaType.Array,
-          default: [],
-          items: {
-            properties: {
-              id: {
-                type: JSONSchemaType.String,
-                default: '',
-              },
-              label: {
-                type: JSONSchemaType.String,
-                default: '',
-              },
-              checked: {
-                type: JSONSchemaType.Boolean,
-                default: false,
-              },
-            },
-          },
-        },
-      },
-    },
-  },
 };
 
 const store = new Store({ schema, watch: true });

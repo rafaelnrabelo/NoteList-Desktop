@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { render } from 'react-dom';
-import { GlobalStyle } from './styles/GlobalStyle';
 
+import { GlobalStyle } from './styles/GlobalStyle';
 import { Container } from './styles';
 
 import HooksProvider from './hooks';
@@ -16,6 +16,19 @@ mainElement.setAttribute('id', 'root');
 document.body.appendChild(mainElement);
 
 const App = () => {
+  useEffect(() => {
+    const { dialog } = require('electron').remote;
+    if (!navigator.onLine) {
+      dialog.showMessageBox({
+        title: 'Sem conexão com a Internet',
+        message: 'Sem internet disponível, mudanças podem não ser salvas.',
+        type: 'warning',
+        buttons: ['OK'],
+        defaultId: 0,
+      });
+    }
+  }, []);
+
   return (
     <HooksProvider>
       <GlobalStyle />

@@ -82,7 +82,6 @@ export const UserProvider: React.FC = ({ children }) => {
         },
       });
       await loadProfilePicture(userProps.id);
-      await loadNotes(userProps.id);
     } catch (err) {
       console.error(err);
     }
@@ -114,7 +113,8 @@ export const UserProvider: React.FC = ({ children }) => {
       window.confirm('Tem certeza que deseja APAGAR a conta e todas anotações?')
     ) {
       await api.delete(`/users/${data.user.id}`);
-      /* store.reset('notes'); */
+
+      localStorage.removeItem('@NoteList:notes');
       store.reset('user');
 
       const saveRequest = {

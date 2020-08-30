@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { ResizableBox } from 'react-resizable';
+import LinearProgress from '@material-ui/core/LinearProgress';
 
 export const Container = styled(ResizableBox).attrs({
   resizeHandles: ['e'],
@@ -46,4 +47,23 @@ export const Content = styled.div`
   ::-webkit-scrollbar-thumb:hover {
     background-color: #41414d;
   }
+
+  .MuiLinearProgress-colorSecondary {
+    background-color: transparent;
+  }
+
+  .MuiLinearProgress-barColorSecondary {
+    background-color: #da552f;
+  }
+
+  .MuiLinearProgress-root {
+    height: 3px;
+    position: absolute;
+  }
+`;
+
+export const LoadingBar = styled(LinearProgress).attrs({
+  color: 'secondary',
+})`
+  width: 100%;
 `;

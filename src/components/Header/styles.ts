@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import { AiOutlineDelete, AiFillDelete } from 'react-icons/ai';
 import { IoMdCheckboxOutline, IoMdCheckbox } from 'react-icons/io';
 import { TiCloudStorageOutline, TiCloudStorage } from 'react-icons/ti';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 interface PropsShow {
   show: Boolean;
@@ -83,6 +84,7 @@ export const SavableWrapper = styled.div<PropsShow>`
   display: ${(props) => (props.show ? 'flex' : 'none')};
   align-items: center;
   justify-content: center;
+  color: #da552f;
 `;
 
 export const SaveIcon = styled(TiCloudStorageOutline)`
@@ -91,6 +93,14 @@ export const SaveIcon = styled(TiCloudStorageOutline)`
 
 export const SaveIconHover = styled(TiCloudStorage)`
   display: none;
+`;
+
+export const LoadingCircle = styled(CircularProgress).attrs({
+  color: 'inherit',
+  size: 24,
+  thickness: 5,
+})`
+  margin-left: 5px;
 `;
 
 export const SaveButton = styled.div`

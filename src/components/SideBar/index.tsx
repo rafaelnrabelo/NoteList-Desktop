@@ -3,7 +3,7 @@ import { ResizeCallbackData } from 'react-resizable';
 import { useTransition } from 'react-spring';
 import { easeCubicOut } from 'd3-ease';
 
-import { Container, Content } from './styles';
+import { Container, Content, LoadingBar } from './styles';
 import NotePreview from './NotePreview';
 import AddButton from './AddButton';
 
@@ -12,7 +12,7 @@ import { useNotes } from '../../hooks/Notes';
 
 const SideBar: React.FC = () => {
   const { sideBarWidth, changeSideBarWidth } = useConfig();
-  const { notes, selected, selectNote } = useNotes();
+  const { notes, selected, loading, selectNote } = useNotes();
 
   const notesWithTransitions = useTransition(notes, (note) => note.id, {
     config: { duration: 100, easing: easeCubicOut },
@@ -33,6 +33,7 @@ const SideBar: React.FC = () => {
     >
       <AddButton />
       <Content>
+        {loading && <LoadingBar />}
         {notesWithTransitions?.map(({ item: note, props, key }) => (
           <NotePreview
             style={props}
