@@ -54,7 +54,7 @@ export const NotesProvider: React.FC = ({ children }) => {
       return JSON.parse(notes);
     }
 
-    return {} as Note[];
+    return [];
   });
   const [filteredNotes, setFilteredNotes] = useState<Note[]>(() => {
     const notes = localStorage.getItem('@NoteList:notes');
@@ -63,7 +63,7 @@ export const NotesProvider: React.FC = ({ children }) => {
       return JSON.parse(notes);
     }
 
-    return {} as Note[];
+    return [];
   });
 
   const [searchText, setSearchText] = useState<string>('');
