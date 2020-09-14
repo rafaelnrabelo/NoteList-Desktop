@@ -1,10 +1,11 @@
 {
-  "name": "NoteList",
+  "name": "notelist",
   "productName": "NoteList",
   "version": "1.5.0",
   "description": "A Simple Note App",
   "homepage": "https://github.com/rafaelnrabelo/NoteList-Desktop.git",
   "main": "./dist/main.js",
+  "icon": "./build/icon.png",
   "scripts": {
     "dev": "npm-run-all -p dev:react electron:serve",
     "dev:electron": "cross-env NODE_ENV=development webpack --config webpack/electron.webpack.js && electron .",
@@ -13,7 +14,7 @@
     "build": "npm-run-all build:electron build:react",
     "build:electron": "cross-env NODE_ENV=production webpack --config webpack/electron.webpack.js",
     "build:react": "cross-env NODE_ENV=production webpack --config webpack/react.webpack.js",
-    "package": "yarn build && electron-builder build --publish never --linux deb",
+    "package": "yarn build && electron-builder build --publish never --linux deb --win",
     "postinstall": "electron-builder install-app-deps"
   },
   "keywords": [],
@@ -58,6 +59,7 @@
     "@babel/runtime": "^7.10.5",
     "@material-ui/core": "^4.11.0",
     "axios": "^0.19.2",
+    "custom-electron-titlebar": "^3.2.4",
     "d3-ease": "^2.0.0",
     "electron-store": "^6.0.0",
     "json-schema-typed": "^7.0.3",
@@ -75,17 +77,26 @@
   "build": {
     "appId": "com.rnr.notelist",
     "productName": "NoteList",
+    "icon": "./build/icon.png",
     "directories": {
-      "output": "packages"
+      "output": "packages",
+      "buildResources": "./build"
     },
     "files": [
       "package.json",
       "dist/**",
+      "build/**",
       "build/icon.*"
     ],
+    "mac": {
+      "icon": "./build/icon.icns"
+    },
+    "win": {
+      "icon": "./build/icon.ico"
+    },
     "linux": {
-      "icon": "./build/icon.png",
-      "synopsis": "NoteList is a simple app to write and save notes",
+      "icon": "./build/256x256.png",
+      "synopsis": "Write and save notes",
       "maintainer": "Rafael Nogueira Rabelo"
     }
   }

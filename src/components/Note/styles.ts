@@ -21,7 +21,7 @@ export const Container = styled.div<PropsContainer>`
   grid-column-start: 2;
   grid-column-end: 4;
   width: ${(props) => `calc(100vw - ${props.width}px)`};
-  height: calc(100vh - 40px);
+  height: calc(100vh - 70px);
   padding: 20px;
   overflow-y: auto;
   ::-webkit-scrollbar {
@@ -52,6 +52,7 @@ export const Title = styled.input.attrs({
   color: #e1e1e6;
   background-color: transparent;
   font-size: 32px;
+  font-family: 'Roboto', sans-serif;
   font-weight: bold;
   margin-bottom: 10px;
   ::placeholder {
@@ -68,6 +69,7 @@ export const Description = styled(TextareaAutosize).attrs({
   color: #e1e1e6;
   background-color: transparent;
   font-size: 20px;
+  font-family: 'Roboto', sans-serif;
   line-height: 1.2;
   resize: none;
   margin-bottom: 5px;
@@ -109,6 +111,7 @@ export const CheckBoxLabel = styled.input.attrs({
 })<PropsCheckBox>`
   border: 0;
   font-size: 20px;
+  font-family: 'Roboto', sans-serif;
   line-height: 1.2;
   background-color: transparent;
   margin-left: 4px;

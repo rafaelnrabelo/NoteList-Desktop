@@ -7,7 +7,7 @@ export const Container = styled(ResizableBox).attrs({
   axis: 'x',
 })`
   background: #282a36;
-  height: calc(100vh - 40px);
+  height: calc(100vh - 70px);
   display: block;
   grid-row-start: 2;
   grid-row-end: 5;

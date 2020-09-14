@@ -1,7 +1,6 @@
 import { app, BrowserWindow, nativeImage } from 'electron';
 import * as path from 'path';
 import * as url from 'url';
-
 let mainWindow: Electron.BrowserWindow | null;
 
 function createWindow() {
@@ -16,8 +15,10 @@ function createWindow() {
     width: 1000,
     height: 600,
     backgroundColor: '#1e1f29',
+    frame: process.platform === 'darwin',
     webPreferences: {
       nodeIntegration: true,
+      enableRemoteModule: true,
     },
     title: 'NoteList',
   });

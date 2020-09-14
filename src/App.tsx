@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { render } from 'react-dom';
+import { Titlebar, Color, Themebar } from 'custom-electron-titlebar';
 
 import { GlobalStyle } from './styles/GlobalStyle';
 import { Container } from './styles';
@@ -25,6 +26,14 @@ const App = () => {
         type: 'warning',
         buttons: ['OK'],
         defaultId: 0,
+      });
+    }
+    if (process.platform !== 'darwin') {
+      new Titlebar({
+        backgroundColor: Color.fromHex('#1e1f29'),
+        iconsTheme: process.platform === 'win32' ? Themebar.win : Themebar.mac,
+        titleHorizontalAlignment: 'center',
+        menu: null,
       });
     }
   }, []);

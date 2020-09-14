@@ -49,6 +49,7 @@ export const ProfilePicture = styled.img`
 export const ProfileName = styled.p`
   font-size: 16px;
   color: rgba(225, 225, 230, 0.9);
+  font-family: 'Roboto', sans-serif;
   font-weight: bold;
 `;
 
